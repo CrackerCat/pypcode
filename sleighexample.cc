@@ -24,7 +24,7 @@
 
 // These are the bytes for an example x86 binary
 // These bytes are loaded at address 0x80483b4
-static uint1 myprog[] = {
+ uint1 myprog[] = {
   0x8d, 0x4c, 0x24, 0x04, 0x83, 0xe4, 0xf0, 0xff, 0x71, 0xfc, 0x55,
   0x89, 0xe5, 0x51, 0x81, 0xec, 0xb4, 0x01, 0x00, 0x00, 0xc7, 0x45, 0xf4,
   0x00, 0x00, 0x00, 0x00, 0xeb, 0x12, 0x8b, 0x45, 0xf4, 0xc7, 0x84,
@@ -107,7 +107,7 @@ public:
   }
 };
 
-static void dumpAssembly(Translate &trans)
+ void dumpAssembly(Translate &trans)
 
 { // Print disassembly of binary code
   AssemblyRaw assememit;	// Set up the disassembly dumper
@@ -133,7 +133,7 @@ public:
   virtual void dump(const Address &addr,OpCode opc,VarnodeData *outvar,VarnodeData *vars,int4 isize);
 };
 
-static void print_vardata(ostream &s,VarnodeData &data)
+ void print_vardata(ostream &s,VarnodeData &data)
 
 {
   s << '(' << data.space->getName() << ',';
@@ -157,7 +157,7 @@ void PcodeRawOut::dump(const Address &addr,OpCode opc,VarnodeData *outvar,Varnod
   cout << endl;
 }
 
-static void dumpPcode(Translate &trans)
+ void dumpPcode(Translate &trans)
 
 { // Dump pcode translation of machine instructions
   PcodeRawOut emit;		// Set up the pcode dumper
@@ -247,7 +247,7 @@ bool TerminateCallBack::addressCallback(const Address &addr)
   return true;
 }
 
-static void doEmulation(Translate &trans,LoadImage &loader)
+ void doEmulation(Translate &trans,LoadImage &loader)
 
 {
   // Set up memory state object
@@ -283,16 +283,16 @@ static void doEmulation(Translate &trans,LoadImage &loader)
   } while(!emulater.getHalt());
 }
 
-int main(int argc,char **argv)
-
+// #if 0
+void test_me(string &action)
 {
-  if (argc != 2) {
-    cerr << "USAGE:  " << argv[0] << " disassemble" << endl;
-    cerr << "        " << argv[0] << " pcode" << endl;
-    cerr << "        " << argv[0] << " emulate" << endl;
-    return 2;
-  }
-  string action(argv[1]);
+  // if (argc != 2) {
+  //   cerr << "USAGE:  " << argv[0] << " disassemble" << endl;
+  //   cerr << "        " << argv[0] << " pcode" << endl;
+  //   cerr << "        " << argv[0] << " emulate" << endl;
+  //   return 2;
+  // }
+  // string action(argv[1]);
 
   // Set up the loadimage
   MyLoadImage loader(0x80483b4,myprog,408);
@@ -327,6 +327,7 @@ int main(int argc,char **argv)
   else
     cerr << "Unknown action: "+action << endl;
 }
+// #endif
 
 /*
      Example Makefile
